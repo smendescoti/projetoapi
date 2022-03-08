@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class ProdutoController {
 	// método para realizar o serviço de cadastro de produto
 	@ApiOperation("Serviço para cadastro de produto.")
 	@RequestMapping(value = ENDPOINT, method = RequestMethod.POST)
+	@CrossOrigin
 	public ResponseEntity<String> post(@RequestBody ProdutoPostRequest request) {
 
 		try {
@@ -60,17 +62,15 @@ public class ProdutoController {
 		}
 	}
 
-	// método para realizar o serviço de edição do produto
 	@ApiOperation("Serviço para atualização dos dados de um produto.")
 	@RequestMapping(value = ENDPOINT, method = RequestMethod.PUT)
+	@CrossOrigin
 	public ResponseEntity<String> put(@RequestBody ProdutoPutRequest request) {
 		
 		try {
 			
-			//consultar o produto no banco de dados atraves do ID
 			Optional<Produto> item = produtoRepository.findById(request.getIdProduto());
 			
-			//verificar se o produto não foi encontrado
 			if(item.isEmpty()) {
 				
 				return ResponseEntity
@@ -104,6 +104,7 @@ public class ProdutoController {
 	// método para realizar o serviço de exclusão do produto
 	@ApiOperation("Serviço para exclusão de um produto.")
 	@RequestMapping(value = ENDPOINT + "/{idProduto}", method = RequestMethod.DELETE)
+	@CrossOrigin
 	public ResponseEntity<String> delete(@PathVariable("idProduto") Integer idProduto) {
 		
 		try {			
@@ -138,6 +139,7 @@ public class ProdutoController {
 	// método para realizar a consulta dos produtos
 	@ApiOperation("Serviço para consultar todos os produtos da aplicação.")
 	@RequestMapping(value = ENDPOINT, method = RequestMethod.GET)
+	@CrossOrigin
 	public ResponseEntity<List<ProdutoGetResponse>> get() {
 
 		List<ProdutoGetResponse> response = new ArrayList<ProdutoGetResponse>();
@@ -164,6 +166,7 @@ public class ProdutoController {
 	//método para consultar 1 produto baseado no ID
 	@ApiOperation("Serviço para consultar 1 produto através do ID.")
 	@RequestMapping(value = ENDPOINT + "/{idProduto}", method = RequestMethod.GET)
+	@CrossOrigin
 	public ResponseEntity<ProdutoGetResponse> getById(@PathVariable("idProduto") Integer idProduto) {
 		
 		//consultar o produto no banco de dados atraves do ID
